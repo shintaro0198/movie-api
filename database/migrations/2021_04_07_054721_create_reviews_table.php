@@ -17,7 +17,7 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->string('user_id');
             $table->string('movie_id');
-            $table->string('content');
+            $table->integer('content');
             $table->timestamps();
         });
     }
