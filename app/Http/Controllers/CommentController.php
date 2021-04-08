@@ -25,11 +25,11 @@ class CommentController extends Controller
                 'updated_at' => $now,
             ];
             DB::table('comments')->insert($param);
-            return response()->json([
-                'message' => 'posted successfully',
-                'data' => $param
-            ], 200);
         }
+        return response()->json([
+            'message' => 'posted successfully',
+            'data' => $param
+        ], 200);
     }
     
     public function show($id)
