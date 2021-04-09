@@ -11,13 +11,10 @@ use Illuminate\Support\Facades\DB;
 class ReviewController extends Controller
 {
     public function evaluate(Request $request){
-        $sorting = Review::where('user_id', $request->user_id)->first();
-        if($sorting){
-            $item = $sorting::where('movie_id',$request->movie_id)->first();
-            if($item){
-            return $item;
-            }
-        }
+        $query = Review::query();
+        $query->where('user_id',$request->user_id);
+        $query->where('movie_id',$request->movie_id);
+        $item = $query->first();
         $now = Carbon::now();
         if($item){
             $item->content = $request->content;
