@@ -15,20 +15,20 @@ class CommentController extends Controller
         $item = Comment::where('user_id',$request->user_id)->first();
         if($item){
             $item->content = $request->content;
+            $item->updated_at = $now;
             $item->save();
         }   else{
-            $param = [
-                'user_id' => $request->user_id,
-                'movie_id' => $request->movie_id,
-                'content' => $request->content,
-                'created_at' => $now,
-                'updated_at' => $now,
-            ];
-            DB::table('comments')->insert($param);
+            $item = new Comment;
+            $item->user_id = $request->user_id;
+            $item->movie_id = $request->movie_id;
+            $item->content = $request->content;
+            $item->save();
+            $item->created_at = $now;
+            $item->updated_at = $now;
         }
         return response()->json([
             'message' => 'posted successfully',
-            'data' => $param
+            'data' => $item
         ], 200);
     }
     

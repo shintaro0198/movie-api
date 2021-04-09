@@ -12,12 +12,12 @@ class ReviewController extends Controller
 {
     public function evaluate(Request $request){
         $item = Review::where('user_id',$request->user_id)->first();
+        $now = Carbon::now();
         if($item){
             $item->content = $request->content;
             $item->save();
         }   else{
             $item = new Review;
-            $now = Carbon::now();
             $item->user_id = $request->user_id;
             $item->movie_id = $request->movie_id;
             $item->content = $request->content;
