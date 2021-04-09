@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\DB;
 class ReviewController extends Controller
 {
     public function evaluate(Request $request){
-        if(Review::where('user_id',$request->user_id)){
-            $item = Review::where('movie_id',$request->movie_id)->first();
+        $sorting = Review::where('user_id', $request->user_id)->first();
+        if($sorting){
+            $item = $sorting::where('movie_id',$request->movie_id)->first();
             if($item){
             return $item;
             }
