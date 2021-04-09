@@ -12,7 +12,12 @@ class CommentController extends Controller
 {
     public function comment(Request $request){
         $now = Carbon::now();
-        $item = Comment::where('user_id',$request->user_id)->first();
+        if (Comment::where('user_id', $request->user_id)) {
+            $item = Comment::where('movie_id', $request->movie_id)->first();
+            if ($item) {
+                return $item;
+            }
+        }
         if($item){
             $item->content = $request->content;
             $item->updated_at = $now;
