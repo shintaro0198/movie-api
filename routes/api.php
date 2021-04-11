@@ -5,8 +5,11 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CommentController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,6 +22,7 @@ use App\Http\Controllers\CommentController;
 */
 Route::post('/register',[RegisterController::class,'register']);
 Route::post('/login',[LoginController::class,'login']);
+Route::post('/logout',[LogoutController::class,'logout']);
 Route::get('reviewAll',[ReviewController::class,'index']);
 Route::post('/review',[ReviewController::class,'evaluate']);
 Route::get('/review/{id}',[ReviewController::class,'show']);
