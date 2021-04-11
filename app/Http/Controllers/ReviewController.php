@@ -33,6 +33,12 @@ class ReviewController extends Controller
             'data' => $item
         ],200);
     }
+    public function index(){
+        $item = DB::table('reviews')->orderBy('content','desc')->get();
+        return response()->json([
+            'data' => $item
+        ],200);
+    }
     public function show($id){
         $item = Review::where('id',$id)->first();
         return response()->json([

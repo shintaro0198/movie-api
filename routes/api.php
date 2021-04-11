@@ -19,6 +19,7 @@ use App\Http\Controllers\CommentController;
 */
 Route::post('/register',[RegisterController::class,'register']);
 Route::post('/login',[LoginController::class,'login']);
+Route::get('reviewAll',[ReviewController::class,'index']);
 Route::post('/review',[ReviewController::class,'evaluate']);
 Route::get('/review/{id}',[ReviewController::class,'show']);
 Route::get('/review',[ReviewController::class,'showAll']);
