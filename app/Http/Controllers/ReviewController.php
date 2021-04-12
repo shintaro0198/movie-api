@@ -34,7 +34,7 @@ class ReviewController extends Controller
         ],200);
     }
     public function index(){
-        $item = DB::table('reviews')->orderBy('content','desc')->get();
+        $item = DB::table('reviews')->groupBy('movie_id')->orderBy('content','desc')->get();
         return response()->json([
             'data' => $item
         ],200);
