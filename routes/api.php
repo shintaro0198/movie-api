@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\UserControler;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\CommentController;
 Route::post('/register',[RegisterController::class,'register']);
 Route::post('/login',[LoginController::class,'login']);
 Route::post('/logout',[LogoutController::class,'logout']);
+Route::get('/user',[UserController::class,'index']);
 Route::post('/user',[UserController::class,'change']);
 Route::get('reviewAll',[ReviewController::class,'index']);
 Route::post('/review',[ReviewController::class,'evaluate']);

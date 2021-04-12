@@ -24,4 +24,10 @@ class RegisterController extends Controller
             'message' => 'Created Successfully'
         ],200);
     }
+    public function index(){
+        $item = User::all();
+        return response()->json([
+            'data' => $item
+        ]);
+    }
 }
