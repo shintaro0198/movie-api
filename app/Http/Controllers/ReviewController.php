@@ -15,6 +15,7 @@ class ReviewController extends Controller
         $query->where('user_id',$request->user_id);
         $query->where('movie_id',$request->movie_id);
         $update = $query->first();
+        $past = $query->first();
         $now = Carbon::now();
         if($update){
             $update->content = $request->content;
@@ -30,7 +31,7 @@ class ReviewController extends Controller
         $sum = Review::where('movie_id',$request->movie_id)->sum('content');
         if($count){
             if($update){
-                $update->average = ($sum + $request->content) /($count);
+                $update->average = ($sum + $request->content -$past->content) /($count);
             } else{
                 $item->average = ($sum + $request->content) / ($count + 1);
             }
@@ -45,16 +46,21 @@ class ReviewController extends Controller
         }
         if($update){
             $update->save();
+            return response()->json([
+                'message' => 'update',
+                'data' => $update
+            ], 200);
         } else{
             $item->save();
+            return response()->json([
+                'message' => 'item',
+                'data' => $item
+            ], 200);
         }
-        return response()->json([
-            'message' => 'posted successfully',
-            'data' => $item
-        ],200);
+        
     }
     public function index(){
-        $item = DB::table('reviews')->groupBy('movie_id')->orderBy('content','desc')->get();
+        $item = DB::table('reviews')->get();
         return response()->json([
             'data' => $item
         ],200);
