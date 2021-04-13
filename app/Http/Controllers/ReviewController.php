@@ -18,7 +18,6 @@ class ReviewController extends Controller
         $now = Carbon::now();
         if($item){
             $item->content = $request->content;
-            $item->save();
         }   else{
             $item = new Review;
             $item->user_id = $request->user_id;
@@ -26,8 +25,16 @@ class ReviewController extends Controller
             $item->content = $request->content;
             $item->created_at = $now;
             $item->updated_at = $now;
-            $item->save();
         }
+        $count = Review::where('movie_id',$request->movie_id)->count('content');
+        $sum = Review::where('movie_id',$request->movie_id)->sum('content');
+        if($count){
+            $item->average = ($sum + $request->content) / ($count + 1);
+        } else{
+            $item->average = $request->content;
+        }
+        $item->save();
+
         return response()->json([
             'message' => 'posted successfully',
             'data' => $item

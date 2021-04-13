@@ -18,6 +18,7 @@ class CreateReviewsTable extends Migration
             $table->string('user_id');
             $table->string('movie_id');
             $table->decimal('content');
+            $table->decimal('average');
             $table->timestamps();
         });
     }
